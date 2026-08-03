@@ -58,6 +58,19 @@ The core database architecture relies on the following strategic constraints and
 
 ---
 
+## 🔌 Database Connectivity & Configuration
+
+The application leverages **SQLAlchemy** (Object-Relational Mapper) paired with the **asyncpg** driver to establish asynchronous connections to a **PostgreSQL** database cluster.
+
+### Setup & Integration
+1. **Environment Variables**: Core connection strings and credential strings are decoupled from the application logic and loaded dynamically using a `.env` configuration file:
+   ```env
+   DATABASE_URL=postgresql+asyncpg://<username>:<password>@<host>:<port>/<database_name>
+   ```
+2. **Engine Initialization**: An asynchronous database engine instance is created via `create_async_engine()`, handling connection pooling configurations automatically to manage high-concurrency client requests cleanly.
+3. **Session Management**: Database handshakes are isolated using a context-managed `async_sessionmaker`. FastAPI routes dependency inject these sessions through a reusable utility function (`get_db`), ensuring that every incoming API call opens a clean connection transaction and terminates it safely upon response delivery.
+
+
 ## 🛠️ API Testing with Swagger UI
 
 The FastAPI backend includes an interactive, browser-based API documentation page via **Swagger UI**. This was used to thoroughly test all database endpoints and relationship constraints without needing external API clients.
