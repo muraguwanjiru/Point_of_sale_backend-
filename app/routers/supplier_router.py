@@ -2,10 +2,11 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
 from database import get_db
+from dependencies import get_current_user
 from repositories.supplier_repository import SupplierRepository
 from schemas.supplier_schema import SupplierCreate, SupplierResponse  
 
-router = APIRouter(prefix="/suppliers", tags=["Suppliers"])
+router = APIRouter(prefix="/suppliers", tags=["Suppliers"],dependencies=[Depends(get_current_user)])
 
 supplier_repo = SupplierRepository()
 

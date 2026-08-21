@@ -2,12 +2,13 @@ from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from typing import List
 from database import get_db
+from dependencies import get_current_user
 from services.product_service import ProductService
 from schemas.product_schema import ProductCreate, ProductUpdate, ProductResponse
 
 router = APIRouter(
     prefix="/products",
-    tags=["Products"]
+    tags=["Products"],dependencies=[Depends(get_current_user)]
 )
 
 product_service = ProductService()

@@ -2,12 +2,13 @@ from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from typing import List
 from database import get_db
+from dependencies import get_current_user
 from services.category_service import CategoryService
 from schemas.category_schema import CategoryCreate, CategoryUpdate, CategoryResponse
 
 router = APIRouter(
     prefix="/categories",
-    tags=["Categories"]
+    tags=["Categories"],dependencies=[Depends(get_current_user)]
 )
 
 category_service = CategoryService()

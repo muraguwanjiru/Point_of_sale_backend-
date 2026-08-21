@@ -8,11 +8,21 @@ class UserService:
         self.repository = UserRepository()
 
     def get_user(self, db: Session, user_id: int):
-        user = self.repository.get(db, user_id)
+        user = self.repository.get_by_id(db, user_id)  # Cleaned up naming
         if not user:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"User with ID {user_id} not found"
+            )
+        return user
+
+  
+    def get_user_by_username(self, db: Session, username: str):
+        user = self.repository.get_by_username(db, username)
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"User with username '{username}' not found"
             )
         return user
 
@@ -22,9 +32,8 @@ class UserService:
     def create_user(self, db: Session, payload: UserCreate):
         user_data = payload.model_dump()
         
-        existing_user = db.query(self.repository.model).filter(
-            self.repository.model.username == user_data["username"]
-        ).first()
+       
+        existing_user = self.repository.get_by_username(db, user_data["username"])
         
         if existing_user:
             raise HTTPException(
@@ -39,11 +48,10 @@ class UserService:
         update_data = payload.model_dump(exclude_unset=True)
         
         if "username" in update_data:
-            existing_user = db.query(self.repository.model).filter(
-                self.repository.model.username == update_data["username"],
-                self.repository.model.user_id != user_id
-            ).first()
-            if existing_user:
+         
+            existing_user = self.repository.get_by_username(db, update_data["username"])
+           
+            if existing_user and existing_user.id != user_id:
                 raise HTTPException(
                     status_code=status.HTTP_400_BAD_REQUEST,
                     detail="Username is already taken by another account"
