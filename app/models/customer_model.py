@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import relationship
 from sqlalchemy import func
-from database import Base
+from app.database import Base
 
 class Customer(Base):
     __tablename__ = "customers"

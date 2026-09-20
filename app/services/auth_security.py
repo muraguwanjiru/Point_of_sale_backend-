@@ -1,7 +1,7 @@
-from core import security
+from app.core import security
 from fastapi import HTTPException, status
-from repositories.user_repository import UserRepository
-from schemas.user_schema import UserCreate, UserUpdate, UserResponse, UserBase
+from app.repositories.user_repository import UserRepository
+from app.schemas.user_schema import UserCreate, UserUpdate, UserResponse, UserBase
 from sqlalchemy.orm import Session
 import jwt
 from datetime import datetime, timedelta

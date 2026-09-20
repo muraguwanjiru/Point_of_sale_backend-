@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 from decimal import Decimal
-from repositories.sale_repository import SalesRepository
-from schemas.sale_schema import SaleCreate, SaleUpdate
+from app.repositories.sale_repository import SalesRepository
+from app.schemas.sale_schema import SaleCreate, SaleUpdate
 
 class SaleService:
     def __init__(self):

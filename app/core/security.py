@@ -1,9 +1,10 @@
 import os
+import hashlib
+import secrets
 from datetime import datetime, timedelta, timezone
 from dotenv import load_dotenv
 from fastapi import HTTPException, status
 import jwt      
-import passlib.hash as passlib_hash
 
 load_dotenv()
 
@@ -13,17 +14,34 @@ ALGORITHM = os.getenv("ALGORITHM", "HS256")
 if not SECRET_KEY:
     raise RuntimeError("CRITICAL ERROR: SECRET_KEY is missing from the environment variables (.env).")
 
+
 def Hash_password(password: str) -> str:
     if not password or not password.strip():
         raise ValueError("Password cannot be empty.")
-    return passlib_hash.recommended.hash(password)
+    
+    # Generate a secure 16-byte random salt
+    salt = secrets.token_bytes(16)
+    
+    # Hash using standard PBKDF2 with SHA-256 (highly secure, no library breaks)
+    hash_bytes = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt, 100000)
+    
+    # Store both salt and hash together as hex strings separated by a colon
+    return f"{salt.hex()}:{hash_bytes.hex()}"
 
 
 def Verify_password(plain_password: str, hashed_password: str) -> bool:
     if not plain_password or not hashed_password:
         return False
     try:
-        return passlib_hash.recommended.verify(plain_password, hashed_password)
+        # Split the salt and the original hash match
+        salt_hex, original_hash_hex = hashed_password.split(":")
+        salt = bytes.fromhex(salt_hex)
+        
+        # Hash the incoming password with the exact same salt
+        new_hash = hashlib.pbkdf2_hmac('sha256', plain_password.encode('utf-8'), salt, 100000)
+        
+        # Use constant-time comparison to protect against timing attacks
+        return secrets.compare_digest(new_hash.hex(), original_hash_hex)
     except Exception:
         return False
 

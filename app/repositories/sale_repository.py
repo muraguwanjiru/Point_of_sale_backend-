@@ -1,4 +1,4 @@
-from models.sale_model import Sale  
+from app.models.sale_model import Sale  
 from sqlalchemy.orm import Session
 
 class SalesRepository:

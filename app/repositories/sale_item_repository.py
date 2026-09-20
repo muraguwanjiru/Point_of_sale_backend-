@@ -1,6 +1,6 @@
 from typing import List, Optional
 from sqlalchemy.orm import Session
-from models.sale_item_model import SaleItem
+from app.models.sale_item_model import SaleItem
 
 class SaleItemRepository:
     def __init__(self):

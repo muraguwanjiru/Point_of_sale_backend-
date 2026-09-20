@@ -1,24 +1,23 @@
 from fastapi import FastAPI
-import models
-from database import Base,engine
-from routers import product_router
-from routers import sale_router
-from routers import user_router
-from routers import customer_router
-from routers import category_router
-from routers import supplier_router
-from routers import sale_item_router
-from routers import payment_router
-from routers import receipt_router
-from models.category_model import Category
-from models.supplier_model import Supplier
-from models.product_model import Product
-from models.customer_model import Customer
-from models.user_model import User
-from models.sale_model import Sale
-from models.sale_item_model import SaleItem
-from models.payment_model import Payment
-from models.receipt_model import Receipt
+from app.database import Base, engine
+from app.routers import product_router
+from app.routers import sale_router
+from app.routers import user_router
+from app.routers import customer_router
+from app.routers import category_router
+from app.routers import supplier_router
+from app.routers import sale_item_router
+from app.routers import payment_router
+from app.routers import receipt_router
+from app.models.category_model import Category
+from app.models.supplier_model import Supplier
+from app.models.product_model import Product
+from app.models.customer_model import Customer
+from app.models.user_model import User
+from app.models.sale_model import Sale
+from app.models.sale_item_model import SaleItem
+from app.models.payment_model import Payment
+from app.models.receipt_model import Receipt
 
 Base.metadata.create_all(bind=engine)
 
@@ -34,3 +33,8 @@ app.include_router(supplier_router.router)
 app.include_router(sale_item_router.router)
 app.include_router(payment_router.router)
 app.include_router(receipt_router.router)
+
+
+@app.get("/")
+def root():
+    return {"message": "Welcome to the POS API!"}   

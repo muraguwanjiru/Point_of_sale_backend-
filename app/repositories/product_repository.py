@@ -1,4 +1,4 @@
-from models.product_model import Product
+from app.models.product_model import Product
 from sqlalchemy.orm import Session
 
 class ProductRepository:
@@ -15,8 +15,8 @@ class ProductRepository:
         product =Product(**data)
         db.add(product)
         db.commit()
-        db.refresh(db_obj)
-        return db_obj
+        db.refresh(product)
+        return product
 
     def delete (self, db:Session,db_obj:Product):
         db.delete(db_obj)

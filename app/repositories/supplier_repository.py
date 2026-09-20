@@ -1,6 +1,6 @@
 from typing import List, Optional
 from sqlalchemy.orm import Session
-from models.supplier_model import Supplier
+from app.models.supplier_model import Supplier
 
 class SupplierRepository:
     def __init__(self):

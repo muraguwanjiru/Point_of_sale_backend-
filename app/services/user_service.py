@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
-from repositories.user_repository import UserRepository
-from schemas.user_schema import UserCreate, UserUpdate ,UserResponse, UserBase
+from app.repositories.user_repository import UserRepository
+from app.schemas.user_schema import UserCreate, UserUpdate ,UserResponse, UserBase
 
 class UserService:
     def __init__(self):

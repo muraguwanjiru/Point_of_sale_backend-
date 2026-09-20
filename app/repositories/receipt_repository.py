@@ -1,4 +1,4 @@
-from models.receipt_model import Receipt
+from app.models.receipt_model import Receipt
 from sqlalchemy.orm import Session
 
 class ReceiptRepository:

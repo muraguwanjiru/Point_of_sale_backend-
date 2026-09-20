@@ -6,7 +6,7 @@ from sqlalchemy import (
     Numeric,
 )
 from sqlalchemy.orm import relationship
-from database import Base
+from app.database import Base
 
 class Product(Base):
     __tablename__ = "products"
@@ -19,8 +19,6 @@ class Product(Base):
     stock_quantity = Column(Integer, nullable=False, default=0)
     category_id = Column(Integer, ForeignKey("categories.category_id"), nullable=False)
     supplier_id = Column(Integer, ForeignKey("suppliers.supplier_id"), nullable=False)
-    
-    
     category = relationship("Category", back_populates="products")
     supplier = relationship("Supplier", back_populates="products")
     sale_items = relationship("SaleItem", back_populates="product")

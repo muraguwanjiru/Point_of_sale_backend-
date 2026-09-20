@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
-from repositories.payment_repository import PaymentRepository
-from schemas.payment_schema import PaymentCreate, PaymentUpdate
+from app.repositories.payment_repository import PaymentRepository
+from app.schemas.payment_schema import PaymentCreate, PaymentUpdate
 
 class PaymentService:
     def __init__(self):

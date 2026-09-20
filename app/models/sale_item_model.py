@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, Numeric, ForeignKey
-from database import Base
+from app.database import Base
 from sqlalchemy.orm import relationship
 
 class SaleItem(Base):

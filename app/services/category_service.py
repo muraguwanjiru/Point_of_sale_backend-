@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
-from repositories.category_repository import CategoryRepository
-from schemas.category_schema import CategoryCreate, CategoryUpdate
+from app.repositories.category_repository import CategoryRepository
+from app.schemas.category_schema import CategoryCreate, CategoryUpdate
 
 class CategoryService:
     def __init__(self):

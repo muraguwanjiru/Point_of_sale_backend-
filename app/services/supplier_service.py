@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
-from repositories.supplier_repository import SupplierRepository
-from schemas.supplier_schema import SupplierCreate
+from app.repositories.supplier_repository import SupplierRepository
+from app.schemas.supplier_schema import SupplierCreate
 
 class SupplierService:
     def __init__(self):
