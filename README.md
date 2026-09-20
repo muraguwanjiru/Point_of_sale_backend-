@@ -84,3 +84,28 @@ The FastAPI backend includes an interactive, browser-based API documentation pag
    * Click **Try it out**.
    * Fill in the required parameters or JSON request body.
    * Click **Execute** to view real-time server responses, status codes (e.g., `200 OK`, `422 Unprocessable Entity`), and database transaction headers.
+
+
+
+   ##  Running the Automated Test Suite
+
+The test suite runs on an isolated, in-memory SQLite database instance to ensure your local PostgreSQL development data remains unaffected.
+
+### Prerequisites
+Make sure your environment dependencies and testing utilities are correctly satisfied:
+```bash
+pip install pytest httpx
+```
+
+### Execute Full Suite
+Run the test runner from your project root directory using package-level tracking:
+```bash
+python3 -m pytest
+```
+
+### Run with Verbose Tracking
+To inspect passing and failing individual execution units, append the verbose flag:
+```bash
+python3 -m pytest -v
+```
+
